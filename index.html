@@ -202,52 +202,251 @@
     </div>
   </section>
 
-  <!-- Content for tab 2 -->
-  <section id="content2" role="tabpanel" aria-labelledby="tab2" hidden>
-    <h2>2. Navigate File Manager UI and Interpret Properties/Metadata</h2>
-    <p>Every operating system (Windows, macOS, Linux) has a file manager (Windows Explorer, Finder, etc.).</p>
-    <h3>Key Parts of a File Manager UI</h3>
-    <ul class="checklist">
-      <li><span class="checkmark">✅</span><strong>Navigation Pane</strong><br>sidebar with quick access to folders (Documents, Downloads, etc.)</li>
-      <li><span class="checkmark">✅</span><strong>Search Bar</strong><br>find files by name or type</li>
-    </ul>
-    <h3>File Properties / Metadata</h3>
-    <p>Metadata is data about a file, including:</p>
-    <table class="table-metadata" aria-label="File properties and their meanings">
-      <thead>
-        <tr><th>Property</th><th>What It Means</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Name</td><td>File's title</td></tr>
-        <tr><td>Type</td><td>File format (PDF, DOCX, JPG...)</td></tr>
-        <tr><td>Size</td><td>How much storage it uses</td></tr>
-        <tr><td>Date Modified</td><td>Last update time</td></tr>
-        <tr><td>Created Date</td><td>When the file was made</td></tr>
-        <tr><td>Location/Path</td><td>Where the file is stored</td></tr>
-        <tr><td>Author</td><td>(Some file types) who edited/created it</td></tr>
-      </tbody>
-    </table>
-    <h3>Example File Manager UI</h3>
-    <img src="https://i.imgur.com/cEvDf6v.png" alt="File Manager UI Example" class="image-example" />
-    <p style="margin-top:1rem;">Right-clicking any file and selecting Properties shows detailed metadata:</p>
-    <ul class="example-list">
-      <li>Size: 2.5 MB</li>
-      <li>Type: Microsoft Word Document</li>
-      <li>Modified: Nov 15, 2025</li>
-      <li>Created: Nov 14, 2025</li>
-      <li>Path: C:\Users\Harold\Desktop\Reports\FinalReport.docx</li>
-    </ul>
+ <!-- Replace only the #content2 section in the previous code with this updated one -->
 
-    <div class="folder-demo" aria-label="Folder creation demo">
-      <h3>Create a New Folder</h3>
-      <input type="text" id="folder-name" placeholder="Enter folder name" aria-label="Folder name input" />
-      <button id="create-folder-btn" aria-describedby="folder-error" aria-live="polite">Create Folder</button>
-      <p id="folder-error" style="color:red; margin-top:0.5rem;" aria-live="assertive"></p>
-      <div class="folder-list" aria-live="polite" aria-atomic="true" aria-relevant="additions removals" aria-label="List of created folders">
-        <!-- Folder names will appear here -->
+<section id="content2" role="tabpanel" aria-labelledby="tab2" hidden>
+  <h2>2. Navigate File Manager UI and Interpret Properties/Metadata</h2>
+  <p>Every operating system (Windows, macOS, Linux) has a file manager (Windows Explorer, Finder, etc.).</p>
+  <h3>Key Parts of a File Manager UI</h3>
+  <ul class="checklist">
+    <li><span class="checkmark">✅</span><strong>Navigation Pane</strong><br>sidebar with quick access to folders (Documents, Downloads, etc.)</li>
+    <li><span class="checkmark">✅</span><strong>Search Bar</strong><br>find files by name or type</li>
+  </ul>
+  <h3>File Properties / Metadata</h3>
+  <p>Metadata is data about a file, including:</p>
+  <table class="table-metadata" aria-label="File properties and their meanings">
+    <thead>
+      <tr><th>Property</th><th>What It Means</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Name</td><td>File's title</td></tr>
+      <tr><td>Type</td><td>File format (PDF, DOCX, JPG...)</td></tr>
+      <tr><td>Size</td><td>How much storage it uses</td></tr>
+      <tr><td>Date Modified</td><td>Last update time</td></tr>
+      <tr><td>Created Date</td><td>When the file was made</td></tr>
+      <tr><td>Location/Path</td><td>Where the file is stored</td></tr>
+      <tr><td>Author</td><td>(Some file types) who edited/created it</td></tr>
+    </tbody>
+  </table>
+  <h3>Example File Manager UI</h3>
+  <img src="https://i.imgur.com/cEvDf6v.png" alt="File Manager UI Example" class="image-example" />
+  <p style="margin-top:1rem;">Right-clicking any file and selecting Properties shows detailed metadata:</p>
+  <ul class="example-list">
+    <li>Size: 2.5 MB</li>
+    <li>Type: Microsoft Word Document</li>
+    <li>Modified: Nov 15, 2025</li>
+    <li>Created: Nov 14, 2025</li>
+    <li>Path: C:\Users\Harold\Desktop\Reports\FinalReport.docx</li>
+  </ul>
+
+  <div class="folder-demo" aria-label="Folder and file creation demo">
+    <h3>File Manager Simulator</h3>
+
+    <div id="folder-view" aria-live="polite" aria-atomic="true">
+
+      <!-- Folder List View -->
+      <div id="folder-list-view" >
+        <h4>Folders</h4>
+        <input type="text" id="folder-name" placeholder="Enter folder name" aria-label="Folder name input" />
+        <button id="create-folder-btn" aria-describedby="folder-error" aria-live="polite">Create Folder</button>
+        <p id="folder-error" style="color:red; margin-top:0.5rem;" aria-live="assertive"></p>
+
+        <div id="folder-list" class="folder-list" aria-label="List of created folders" tabindex="0">
+          <!-- Created folders appear here -->
+        </div>
       </div>
+
+      <!-- Inside Folder View -->
+      <div id="inside-folder-view" hidden>
+        <button id="back-to-folder-list" aria-label="Back to folder list" style="margin-bottom: 1rem; cursor:pointer; background:#ccc; border:none; padding:0.4rem 0.8rem; border-radius: 4px;">← Back to Folders</button>
+        <h4 id="current-folder-title">Folder: </h4>
+
+        <input type="text" id="file-name" placeholder="Enter file name" aria-label="File name input" />
+        <button id="create-file-btn" aria-describedby="file-error" aria-live="polite">Save File</button>
+        <p id="file-error" style="color:red; margin-top:0.5rem;" aria-live="assertive"></p>
+
+        <div id="file-list" class="folder-list" aria-label="List of files in the current folder" tabindex="0" style="margin-top: 1rem;">
+          <!-- Files in folder appear here -->
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
+
+<script>
+  // Folder & File logic
+
+  const folderListElement = document.getElementById('folder-list');
+  const folderNameInput = document.getElementById('folder-name');
+  const createFolderBtn = document.getElementById('create-folder-btn');
+  const folderErrorMsg = document.getElementById('folder-error');
+
+  const insideFolderView = document.getElementById('inside-folder-view');
+  const folderListView = document.getElementById('folder-list-view');
+  const backToFolderListBtn = document.getElementById('back-to-folder-list');
+  const currentFolderTitle = document.getElementById('current-folder-title');
+
+  const fileNameInput = document.getElementById('file-name');
+  const createFileBtn = document.getElementById('create-file-btn');
+  const fileErrorMsg = document.getElementById('file-error');
+  const fileListElement = document.getElementById('file-list');
+
+  // Data store for folders and files
+  // Object with folderName keys and array of fileNames values
+  const folders = {};
+
+  let currentFolder = null;
+
+  // Util: Clear element children
+  function clearChildren(element) {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+  }
+
+  // Render folder list
+  function renderFolderList() {
+    clearChildren(folderListElement);
+    const folderEntries = Object.keys(folders);
+    if (folderEntries.length === 0) {
+      const p = document.createElement('p');
+      p.textContent = "No folders created yet.";
+      folderListElement.appendChild(p);
+      return;
+    }
+    folderEntries.forEach(folderName => {
+      const div = document.createElement('div');
+      div.className = 'folder-item';
+      div.tabIndex = 0;
+      div.setAttribute('role', 'button');
+      div.setAttribute('aria-pressed', 'false');
+      div.textContent = folderName;
+      div.style.cursor = 'pointer';
+      div.addEventListener('click', () => openFolder(folderName));
+      div.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openFolder(folderName);
+        }
+      });
+      folderListElement.appendChild(div);
+    });
+  }
+
+  // Open folder view
+  function openFolder(folderName) {
+    currentFolder = folderName;
+    currentFolderTitle.textContent = `Folder: ${folderName}`;
+    folderListView.hidden = true;
+    insideFolderView.hidden = false;
+    fileNameInput.value = '';
+    fileErrorMsg.textContent = '';
+    renderFileList();
+    fileNameInput.focus();
+  }
+
+  // Back to folder list view
+  backToFolderListBtn.addEventListener('click', () => {
+    currentFolder = null;
+    folderListView.hidden = false;
+    insideFolderView.hidden = true;
+    folderErrorMsg.textContent = '';
+    renderFolderList();
+    folderNameInput.focus();
+  });
+
+  // Render files in current folder
+  function renderFileList() {
+    clearChildren(fileListElement);
+    if (!currentFolder || !folders[currentFolder] || folders[currentFolder].length === 0) {
+      const p = document.createElement('p');
+      p.textContent = "No files in this folder yet.";
+      fileListElement.appendChild(p);
+      return;
+    }
+    folders[currentFolder].forEach(fileName => {
+      const div = document.createElement('div');
+      div.className = 'folder-item';
+      div.textContent = fileName;
+      fileListElement.appendChild(div);
+    });
+  }
+
+  // Create folder handler
+  createFolderBtn.addEventListener('click', () => {
+    const folderName = folderNameInput.value.trim();
+
+    folderErrorMsg.textContent = '';
+
+    if (!folderName) {
+      folderErrorMsg.textContent = 'Please enter a folder name.';
+      return;
+    }
+    const invalidChars = /[^a-zA-Z0-9_\-\s]/;
+    if (invalidChars.test(folderName)) {
+      folderErrorMsg.textContent = 'Folder name contains invalid characters.';
+      return;
+    }
+    if (folders.hasOwnProperty(folderName.toLowerCase())) {
+      folderErrorMsg.textContent = 'Folder name already exists.';
+      return;
+    }
+
+    // Add folder (store with original case, but keys normalized)
+    folders[folderName] = [];
+
+    folderNameInput.value = '';
+    renderFolderList();
+    folderErrorMsg.textContent = '';
+    folderNameInput.focus();
+  });
+
+  folderNameInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      createFolderBtn.click();
+    }
+  });
+
+  // Create file handler
+  createFileBtn.addEventListener('click', () => {
+    if (!currentFolder) return;
+    const fileName = fileNameInput.value.trim();
+
+    fileErrorMsg.textContent = '';
+
+    if (!fileName) {
+      fileErrorMsg.textContent = 'Please enter a file name.';
+      return;
+    }
+    const invalidChars = /[^a-zA-Z0-9_\-\.\s]/;
+    if (invalidChars.test(fileName)) {
+      fileErrorMsg.textContent = 'File name contains invalid characters.';
+      return;
+    }
+    if (folders[currentFolder].some(f => f.toLowerCase() === fileName.toLowerCase())) {
+      fileErrorMsg.textContent = 'File name already exists in this folder.';
+      return;
+    }
+
+    folders[currentFolder].push(fileName);
+    fileNameInput.value = '';
+    renderFileList();
+    fileErrorMsg.textContent = '';
+    fileNameInput.focus();
+  });
+
+  fileNameInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      createFileBtn.click();
+    }
+  });
+
+  // Initial render
+  renderFolderList();
+</script>
 
   <!-- Content for tab 3 -->
   <section id="content3" role="tabpanel" aria-labelledby="tab3" hidden>
@@ -339,4 +538,5 @@
   });
 </script>
 </body>
+
 </html>
