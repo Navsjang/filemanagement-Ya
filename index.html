@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>File Management</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f7f9fc;
+    color: #222;
+  }
+  header {
+    background-color: #005a87;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  nav {
+    display: flex;
+    background: #004c72;
+  }
+  nav button {
+    flex: 1;
+    background: #004c72;
+    border: none;
+    color: white;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    border-bottom: 3px solid transparent;
+    transition: background 0.3s, border-bottom-color 0.3s;
+  }
+  nav button:hover {
+    background: #0366a6;
+  }
+  nav button.active {
+    border-bottom-color: #ffc107;
+    font-weight: bold;
+    background: #0366a6;
+  }
+  main {
+    padding: 1rem 2rem 2rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  h2 {
+    margin-top: 0;
+    color: #054a75;
+  }
+  .checklist {
+    margin: 1rem 0 1rem 0;
+    padding-left: 1.2rem;
+  }
+  .checklist li {
+    margin-bottom: 0.5rem;
+  }
+  .checkmark {
+    color: #28a745;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+  ul.example-list {
+    background: #eef3f8;
+    border: 1px solid #c7d1dc;
+    padding: 1rem;
+    max-width: 500px;
+    border-radius: 5px;
+    list-style-type: none;
+  }
+  ul.example-list li {
+    padding: 0.3rem 0;
+  }
+  .folder-demo {
+    margin-top: 1.5rem;
+  }
+  .folder-demo input[type="text"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 250px;
+    margin-right: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  .folder-demo button {
+    padding: 0.55rem 1rem;
+    font-size: 1rem;
+    background-color: #005a87;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .folder-demo button:hover {
+    background-color: #0366a6;
+  }
+  .folder-list {
+    margin-top: 1rem;
+    background: #f0f7fc;
+    border: 1px solid #c7d1dc;
+    padding: 0.75rem;
+    border-radius: 4px;
+    max-width: 300px;
+  }
+  .folder-item {
+    font-weight: bold;
+    padding: 0.2rem 0;
+    color: #2c3e50;
+  }
+  .image-example {
+    max-width: 100%;
+    margin: 1rem 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  .subheading {
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  .table-metadata {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 0.5rem;
+  }
+  .table-metadata th, .table-metadata td {
+    border: 1px solid #bbb;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+  .table-metadata th {
+    background-color: #dde6f0;
+  }
+  /* Responsive */
+  @media (max-width: 600px) {
+    main {
+      padding: 1rem;
+    }
+    nav button {
+      font-size: 1rem;
+      padding: 0.8rem;
+    }
+    .folder-demo input[type="text"] {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+    .folder-demo button {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+<header>File Management</header>
+
+<nav>
+  <button id="tab1" class="active" aria-controls="content1" aria-selected="true">1. Why File Management Matters</button>
+  <button id="tab2" aria-controls="content2" aria-selected="false">2. Navigate File Manager UI and Interpret Properties/Metadata</button>
+  <button id="tab3" aria-controls="content3" aria-selected="false">3. Apply Naming Conventions and Versioning</button>
+</nav>
+
+<main>
+  <!-- Content for tab 1 -->
+  <section id="content1" role="tabpanel" aria-labelledby="tab1">
+    <h2>1. Why File Management Matters</h2>
+    <p>File management is the process of organizing, naming, storing, and maintaining digital files so you can easily find, use, and protect them.</p>
+    <h3>Why It Matters</h3>
+    <ul class="checklist">
+      <li><span class="checkmark">✅</span><strong>Saves Time</strong><br>You can quickly locate files instead of searching through cluttered folders.</li>
+      <li><span class="checkmark">✅</span><strong>Prevents Lost Work</strong><br>Correct storage and backups protect your data from deletion or corruption.</li>
+      <li><span class="checkmark">✅</span><strong>Improves Productivity</strong><br>A clean, logical structure helps you work faster and collaborate better.</li>
+      <li><span class="checkmark">✅</span><strong>Avoids Duplication</strong><br>Organized files reduce confusion and mistakes caused by multiple versions.</li>
+    </ul>
+    <h3>Example</h3>
+    <p>If your project is well-organized (e.g., <strong>Documents &gt; School &gt; ICT &gt; File Management</strong>), you can instantly find your homework.</p>
+    <p>Without a structure, files may be scattered everywhere, causing delays.</p>
+    <div style="display:flex; align-items:center; gap:1rem; flex-wrap: wrap; margin-top:1rem;">
+      <svg width="50" height="40" viewBox="0 0 24 24" fill="#cba258" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4Z"/>
+      </svg>
+      <div>
+        <strong>Documents</strong><br />
+        <svg width="14" height="16" viewBox="0 0 20 20" fill="#a5947f" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="transform: translateY(5px); margin-left: 8px;">
+          <path d="M4 1L16 1L16 7L18 7L18 1H4C3 1 2.2 1.8 2.2 2.8L2 17L4 17L4 1Z"></path>
+        </svg>
+        <strong>School</strong><br />
+        <strong>ICT</strong><br />
+        <strong>File Management</strong>
+      </div>
+      <svg width="40" height="50" viewBox="0 0 24 24" fill="#7c7c7c" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M14 2H6C4.897 2 4 2.897 4 4V20C4 21.103 4.897 22 6 22H18C19.103 22 20 21.103 20 20V8L14 2Z" fill="#7c7c7c"/>
+          <path d="M14 2V8H20" fill="#a9a9a9"/>
+      </svg>
+      <strong style="font-size: 1.5rem; margin-left: 4px;">HomeWork</strong>
+    </div>
+  </section>
+
+  <!-- Content for tab 2 -->
+  <section id="content2" role="tabpanel" aria-labelledby="tab2" hidden>
+    <h2>2. Navigate File Manager UI and Interpret Properties/Metadata</h2>
+    <p>Every operating system (Windows, macOS, Linux) has a file manager (Windows Explorer, Finder, etc.).</p>
+    <h3>Key Parts of a File Manager UI</h3>
+    <ul class="checklist">
+      <li><span class="checkmark">✅</span><strong>Navigation Pane</strong><br>sidebar with quick access to folders (Documents, Downloads, etc.)</li>
+      <li><span class="checkmark">✅</span><strong>Search Bar</strong><br>find files by name or type</li>
+    </ul>
+    <h3>File Properties / Metadata</h3>
+    <p>Metadata is data about a file, including:</p>
+    <table class="table-metadata" aria-label="File properties and their meanings">
+      <thead>
+        <tr><th>Property</th><th>What It Means</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Name</td><td>File's title</td></tr>
+        <tr><td>Type</td><td>File format (PDF, DOCX, JPG...)</td></tr>
+        <tr><td>Size</td><td>How much storage it uses</td></tr>
+        <tr><td>Date Modified</td><td>Last update time</td></tr>
+        <tr><td>Created Date</td><td>When the file was made</td></tr>
+        <tr><td>Location/Path</td><td>Where the file is stored</td></tr>
+        <tr><td>Author</td><td>(Some file types) who edited/created it</td></tr>
+      </tbody>
+    </table>
+    <h3>Example File Manager UI</h3>
+    <img src="https://i.imgur.com/cEvDf6v.png" alt="File Manager UI Example" class="image-example" />
+    <p style="margin-top:1rem;">Right-clicking any file and selecting Properties shows detailed metadata:</p>
+    <ul class="example-list">
+      <li>Size: 2.5 MB</li>
+      <li>Type: Microsoft Word Document</li>
+      <li>Modified: Nov 15, 2025</li>
+      <li>Created: Nov 14, 2025</li>
+      <li>Path: C:\Users\Harold\Desktop\Reports\FinalReport.docx</li>
+    </ul>
+
+    <div class="folder-demo" aria-label="Folder creation demo">
+      <h3>Create a New Folder</h3>
+      <input type="text" id="folder-name" placeholder="Enter folder name" aria-label="Folder name input" />
+      <button id="create-folder-btn" aria-describedby="folder-error" aria-live="polite">Create Folder</button>
+      <p id="folder-error" style="color:red; margin-top:0.5rem;" aria-live="assertive"></p>
+      <div class="folder-list" aria-live="polite" aria-atomic="true" aria-relevant="additions removals" aria-label="List of created folders">
+        <!-- Folder names will appear here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Content for tab 3 -->
+  <section id="content3" role="tabpanel" aria-labelledby="tab3" hidden>
+    <h2>3. Apply Naming Conventions and Versioning</h2>
+    <ul class="checklist">
+      <li><span class="checkmark">✅</span><strong>Use descriptive filenames</strong><br>include keywords about the content</li>
+      <li><span class="checkmark">✅</span><strong>Avoid spaces and special characters</strong><br>use underscores or camel case</li>
+      <li><span class="checkmark">✅</span><strong>Add version numbers</strong><br>indicate updates or revisions</li>
+    </ul>
+    <h3>Example:</h3>
+    <ul class="example-list">
+      <li>FileManagement_Presentation.pptx</li>
+      <li>FileManagementPresentation_v3.pptx</li>
+      <li>Filemanagementpresentation_final.pptx</li>
+      <li>FileManagementPresentation_FinalVersion.pptx</li>
+    </ul>
+  </section>
+</main>
+
+<script>
+  const tabs = document.querySelectorAll('nav button');
+  const panels = document.querySelectorAll('main section');
+
+  // Switch tab function
+  function switchTab(event) {
+    // remove active state from all tabs and hide panels
+    tabs.forEach(tab => {
+      tab.classList.remove('active');
+      tab.setAttribute('aria-selected', 'false');
+    });
+    panels.forEach(panel => (panel.hidden = true));
+
+    // activate clicked tab and show panel
+    const clickedTab = event.currentTarget;
+    clickedTab.classList.add('active');
+    clickedTab.setAttribute('aria-selected', 'true');
+    const panelId = clickedTab.getAttribute('aria-controls');
+    document.getElementById(panelId).hidden = false;
+  }
+
+  tabs.forEach(tab => tab.addEventListener('click', switchTab));
+
+  // Folder creation logic
+  const createBtn = document.getElementById('create-folder-btn');
+  const folderInput = document.getElementById('folder-name');
+  const folderList = document.querySelector('.folder-list');
+  const errorMsg = document.getElementById('folder-error');
+
+  const createdFolders = new Set();
+
+  createBtn.addEventListener('click', () => {
+    const folderName = folderInput.value.trim();
+
+    errorMsg.textContent = '';
+
+    if (!folderName) {
+      errorMsg.textContent = 'Please enter a folder name.';
+      return;
+    }
+    // Basic validation: no special chars except underscore, dash, space
+    const invalidChars = /[^a-zA-Z0-9_\-\s]/;
+    if (invalidChars.test(folderName)) {
+      errorMsg.textContent = 'Folder name contains invalid characters.';
+      return;
+    }
+    if (createdFolders.has(folderName.toLowerCase())) {
+      errorMsg.textContent = 'Folder name already exists.';
+      return;
+    }
+
+    // Add folder to list visually
+    const div = document.createElement('div');
+    div.className = 'folder-item';
+    div.textContent = folderName;
+    folderList.appendChild(div);
+
+    createdFolders.add(folderName.toLowerCase());
+
+    // Clear input
+    folderInput.value = '';
+  });
+
+  // Accessibility: Allow Enter key to create folder
+  folderInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      createBtn.click();
+    }
+  });
+</script>
+</body>
+</html>
